@@ -1,10 +1,15 @@
-var GroceryList = (props) => (
-  <ul>
-    <li>{props.item[0]}</li>
-    <li>{props.item[1]}</li>
-    <li>{props.item[2]}</li>
-  </ul>
-)
+var GroceryList = (props) => {
+  var itemClick = (event) => {
+    console.log('click');
+  };
+  return (
+    <ul>
+      <li onClick = {itemClick}> {props.item[0]}</li>
+      <li>{props.item[1]}</li>
+      <li>{props.item[2]}</li>
+    </ul>
+  );
+}
 
 var GroceryListItem = () => (
   <div>
