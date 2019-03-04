@@ -1,7 +1,8 @@
 var GroceryList = () => (
   <ul>
-    <li>Apples</li>
-    <li>Pears</li>
+  <h2>Grocery List</h2>
+    <Apples />
+    <Pears />
   </ul>
 )
 
