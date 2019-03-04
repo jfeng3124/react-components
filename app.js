@@ -1,38 +1,55 @@
-var GroceryList = (props) => {
-  var itemClick = (event) => {
-    console.log('click');
-  };
-  return (
-    <ul>
-      <li onClick = {itemClick}> {props.item[0]}</li>
-      <li>{props.item[1]}</li>
-      <li>{props.item[2]}</li>
-    </ul>
-  );
+var App = () => (
+  <div>
+    <h2>Grocery List</h2>
+    <GroceryList groceryItems={['apples', 'pears', 'strawberries']}/>
+  </div>
+);
+
+class GroceryListItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      done: false,
+      focus: false
+    };
+  }
+
+  onListItemClick() {
+    this.setState({
+      done: !this.state.done
+    });
+  }
+
+  onListItemHover() {
+    this.setState({
+      focus: !this.state.focus
+    });
+  }
+
+  render() {
+    var style = {
+      textDecoration: this.state.done ? 'line-through' : 'none',
+      fontWeight: this.state.focus ? 'bold' : 'normal',
+      cursor: this.state.focus ? 'pointer': 'cursor'
+    };
+
+    return (
+      <li style={style} onClick={this.onListItemClick.bind(this)} onMouseEnter={this.onListItemHover.bind(this)} 
+      onMouseLeave={this.onListItemHover.bind(this)}>{this.props.groceryListItem}</li>
+    );
+
+  }
+
 }
 
-var GroceryListItem = () => (
-  <div>
-  <h2>Grocery List</h2>
-  <GroceryList item={['apples', 'pears', 'strawberries']} />
-  </div>
-)
+var GroceryList = (props) => (
+  <ul>
+    {props.groceryItems.map(groceryListItem =>
+      <GroceryListItem groceryListItem={groceryListItem} />
+    )}
+  </ul>
+);
 
-ReactDOM.render(<GroceryListItem />, document.getElementById("app"));
-
-// var TodoList = (props) => (
-//   <ul>
-//     <li>{props.todos[0]}</li>
-//     <li>{props.todos[1]}</li>
-//     <li>{props.todos[2]}</li>
-//   </ul>
-// );
-
-// var App = () => (
-//   <div>
-//     <h2>My Todo List</h2>
-//     <TodoList todos={['Learn React', 'Crush Recast.ly', 'Maybe sleep']}/> // Here we are creating an instance of the `TodoList` component
-//   </div>
-// );
-
-// ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<GroceryList />, document.getElementById('GroceryList'));
+ReactDOM.render(<GroceryListItem />, document.getElementById('GroceryListItem'));
